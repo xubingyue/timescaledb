@@ -34,24 +34,11 @@ SELECT * FROM create_hypertable('hyper', 'time');
 ERROR:  Combining INSERT triggers with UPDATE or DELETE triggers is not supported.
 \set ON_ERROR_STOP 1
 DROP TRIGGER _0_test_trigger ON hyper;
-CREATE TRIGGER _0_test_trigger
-    AFTER INSERT ON hyper
-    FOR EACH ROW EXECUTE PROCEDURE test_trigger();
-\set ON_ERROR_STOP 0
-SELECT * FROM create_hypertable('hyper', 'time');
-ERROR:  AFTER trigger on INSERT is not supported: _0_test_trigger.
-\set ON_ERROR_STOP 1
-DROP TRIGGER _0_test_trigger ON hyper;
-CREATE TRIGGER _0_test_trigger
-    AFTER INSERT ON hyper
-    FOR EACH STATEMENT EXECUTE PROCEDURE test_trigger();
-\set ON_ERROR_STOP 0
-SELECT * FROM create_hypertable('hyper', 'time');
-ERROR:  AFTER trigger on INSERT is not supported: _0_test_trigger.
-\set ON_ERROR_STOP 1
-DROP TRIGGER _0_test_trigger ON hyper;
 CREATE TRIGGER _0_test_trigger_insert
     BEFORE INSERT ON hyper
+    FOR EACH ROW EXECUTE PROCEDURE test_trigger();
+CREATE TRIGGER _0_test_trigger_insert_after
+    AFTER INSERT ON hyper
     FOR EACH ROW EXECUTE PROCEDURE test_trigger();
 CREATE TRIGGER _0_test_trigger_insert_s_before
     BEFORE INSERT ON hyper
@@ -91,10 +78,12 @@ INSERT INTO hyper(time, device_id,sensor_1) VALUES
 (1257987600000000000, 'dev1', 1);
 WARNING:  FIRING trigger when: BEFORE level: STATEMENT op: INSERT cnt: 0
 WARNING:  FIRING trigger when: BEFORE level: ROW op: INSERT cnt: 0
+WARNING:  FIRING trigger when: AFTER level: ROW op: INSERT cnt: 1
 INSERT INTO hyper(time, device_id,sensor_1) VALUES
 (1257987700000000000, 'dev2', 1);
 WARNING:  FIRING trigger when: BEFORE level: STATEMENT op: INSERT cnt: 1
 WARNING:  FIRING trigger when: BEFORE level: ROW op: INSERT cnt: 1
+WARNING:  FIRING trigger when: AFTER level: ROW op: INSERT cnt: 2
 UPDATE hyper SET sensor_1 = 2;
 WARNING:  FIRING trigger when: BEFORE level: STATEMENT op: UPDATE cnt: 2
 WARNING:  FIRING trigger when: BEFORE level: ROW op: UPDATE cnt: 2
@@ -114,8 +103,10 @@ DROP TRIGGER _0_test_trigger_insert ON hyper;
 DROP TRIGGER _0_test_trigger_insert_s_before ON hyper;
 INSERT INTO hyper(time, device_id,sensor_1) VALUES
 (1257987600000000000, 'dev1', 1);
+WARNING:  FIRING trigger when: AFTER level: ROW op: INSERT cnt: 1
 INSERT INTO hyper(time, device_id,sensor_1) VALUES
 (1257987700000000000, 'dev2', 1);
+WARNING:  FIRING trigger when: AFTER level: ROW op: INSERT cnt: 2
 DROP TRIGGER _0_test_trigger_update ON hyper;
 DROP TRIGGER _0_test_trigger_update_s_before ON hyper;
 DROP TRIGGER _0_test_trigger_update_after ON hyper;
@@ -161,10 +152,12 @@ INSERT INTO hyper(time, device_id,sensor_1) VALUES
 (1257987600000000000, 'dev1', 1);
 WARNING:  FIRING trigger when: BEFORE level: STATEMENT op: INSERT cnt: 0
 WARNING:  FIRING trigger when: BEFORE level: ROW op: INSERT cnt: 0
+WARNING:  FIRING trigger when: AFTER level: ROW op: INSERT cnt: 1
 INSERT INTO hyper(time, device_id,sensor_1) VALUES
 (1257987700000000000, 'dev2', 1);
 WARNING:  FIRING trigger when: BEFORE level: STATEMENT op: INSERT cnt: 1
 WARNING:  FIRING trigger when: BEFORE level: ROW op: INSERT cnt: 1
+WARNING:  FIRING trigger when: AFTER level: ROW op: INSERT cnt: 2
 UPDATE hyper SET sensor_1 = 2;
 WARNING:  FIRING trigger when: BEFORE level: STATEMENT op: UPDATE cnt: 2
 WARNING:  FIRING trigger when: BEFORE level: ROW op: UPDATE cnt: 2

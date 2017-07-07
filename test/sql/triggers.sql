@@ -32,25 +32,12 @@ SELECT * FROM create_hypertable('hyper', 'time');
 \set ON_ERROR_STOP 1
 DROP TRIGGER _0_test_trigger ON hyper;
 
-CREATE TRIGGER _0_test_trigger
-    AFTER INSERT ON hyper
-    FOR EACH ROW EXECUTE PROCEDURE test_trigger();
-\set ON_ERROR_STOP 0
-SELECT * FROM create_hypertable('hyper', 'time');
-\set ON_ERROR_STOP 1
-DROP TRIGGER _0_test_trigger ON hyper;
-
-
-CREATE TRIGGER _0_test_trigger
-    AFTER INSERT ON hyper
-    FOR EACH STATEMENT EXECUTE PROCEDURE test_trigger();
-\set ON_ERROR_STOP 0
-SELECT * FROM create_hypertable('hyper', 'time');
-\set ON_ERROR_STOP 1
-DROP TRIGGER _0_test_trigger ON hyper;
-
 CREATE TRIGGER _0_test_trigger_insert
     BEFORE INSERT ON hyper
+    FOR EACH ROW EXECUTE PROCEDURE test_trigger();
+
+CREATE TRIGGER _0_test_trigger_insert_after
+    AFTER INSERT ON hyper
     FOR EACH ROW EXECUTE PROCEDURE test_trigger();
 
 CREATE TRIGGER _0_test_trigger_insert_s_before
@@ -175,4 +162,3 @@ INSERT INTO hyper(time, device_id,sensor_1) VALUES
 UPDATE hyper SET sensor_1 = 2;
 
 DELETE FROM hyper;
-
