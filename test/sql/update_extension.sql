@@ -1,0 +1,3 @@
+DROP EXTENSION timescaledb;
+CREATE EXTENSION timescaledb VERSION '0.1.0';
+ALTER EXTENSION timescaledb UPDATE TO '0.1.1';
