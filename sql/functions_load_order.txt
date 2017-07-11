@@ -11,10 +11,11 @@ sql/chunk_index.sql
 sql/chunk_triggers.sql
 sql/chunk_index_triggers.sql
 sql/chunk_triggers.sql
+sql/setup_main.sql
 sql/ddl_api.sql
 sql/ddl_triggers.sql
 sql/tablespace.sql
 sql/bookend.sql
 sql/time_bucket.sql
-sql/setup_main.sql
 sql/version.sql
+sql/cache_functions.sql
