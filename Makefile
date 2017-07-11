@@ -15,7 +15,7 @@ UPDATE_FILE = sql/$(EXTENSION)--$(UPDATE_VERSIONS).sql
 EXT_GIT_COMMIT := $(shell git describe --abbrev=4 --dirty --always --tags || echo $(EXT_GIT_COMMIT))
 EXT_SQL_FILE = sql/$(EXTENSION)--$(EXT_VERSION).sql
 
-DATA = $(EXT_SQL_FILE)
+DATA = $(EXT_SQL_FILE) $(UPDATE_FILE)
 MODULE_big = $(EXTENSION)
 
 SRCS = \

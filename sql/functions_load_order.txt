@@ -1,4 +1,3 @@
-sql/cache.sql
 sql/errors.sql
 sql/ddl_internal.sql
 sql/util_time.sql
