@@ -16,6 +16,5 @@ sql/ddl_triggers.sql
 sql/tablespace.sql
 sql/bookend.sql
 sql/time_bucket.sql
-sql/permissions.sql
-sql/init.sql
+sql/setup_main.sql
 sql/version.sql

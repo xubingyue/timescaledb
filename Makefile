@@ -7,7 +7,7 @@ $(error "TimescaleDB requires PostgreSQL $(MIN_SUPPORTED_VERSION)")
 endif
 
 EXTENSION = timescaledb
-SQL_FILES = $(shell cat sql/setup_load_order.txt sql/functions_load_order.txt)
+SQL_FILES = $(shell cat sql/setup_load_order.txt sql/functions_load_order.txt sql/init_load_order.txt)
 EXT_VERSION = $(shell cat timescaledb.control | grep 'default' | sed "s/^.*'\(.*\)'$\/\1/g")
 UPDATE_VERSIONS = $(shell ls -1 sql/updates/*.sql | xargs basename | grep $(EXT_VERSION) | sed "s/\.sql//g")
 UPDATE_FILES = $(shell echo sql/updates/${UPDATE_VERSIONS}.sql && cat sql/functions_load_order.txt)
