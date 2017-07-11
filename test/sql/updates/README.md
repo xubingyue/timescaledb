@@ -9,7 +9,7 @@ docker rm -f timescaledb-orig timescaledb-updated timescaledb-clean || rm -rf  /
 
 Build updated container: 
 1) Setup a 0.1.0 docker.
-docker run -d --name timescaledb-orig -v /tmp/pg_data:/var/lib/postgresql/data -p 6432:5432 timescale/timescaledb
+docker run -d --name timescaledb-orig -v /tmp/pg_data:/var/lib/postgresql/data -p 6432:5432 timescale/timescaledb:0.1.0
 2) Run a test setup script:
 psql -h localhost -U postgres -p 6432 -f test/sql/updates/setup.sql
 3) Stop 0.1.0 docker.
@@ -29,5 +29,5 @@ psql -h localhost -U postgres -p 6433 -f test/sql/updates/setup.sql
 Compare:
 psql -h localhost -U postgres -d single -p 6432 -f test/sql/updates/test-0.1.1.sql > /tmp/updated.out
 psql -h localhost -U postgres -d single -p 6433 -f test/sql/updates/test-0.1.1.sql > /tmp/clean.out
-
+diff /tmp/clean.out /tmp/updated.out
 
