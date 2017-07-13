@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS _timescaledb_catalog.hypertable_trigger (
     definition       TEXT                NOT NULL, -- def with /*TABLE_NAME*/ placeholders
     UNIQUE(hypertable_id, trigger_name)
 );
-SELECT pg_catalog.pg_extension_config_dump('_timescaledb_catalog.hypertable_trigger', '');
+--SELECT pg_catalog.pg_extension_config_dump('_timescaledb_catalog.hypertable_trigger', '');
 SELECT pg_catalog.pg_extension_config_dump(pg_get_serial_sequence('_timescaledb_catalog.hypertable_trigger','id'), '');
 
 CREATE TABLE IF NOT EXISTS _timescaledb_catalog.chunk_trigger (
