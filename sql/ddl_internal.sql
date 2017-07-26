@@ -185,14 +185,8 @@ DECLARE
 BEGIN
     SELECT * INTO STRICT trigger_row FROM pg_trigger WHERE OID = trigger_oid;
 
-    IF (trigger_row.tgtype & (1 << 2) != 0) THEN
-        --is INSERT trigger
-        IF (trigger_row.tgtype & (1 << 3) != 0) OR (trigger_row.tgtype & (1 << 4) != 0) THEN
-            RAISE 'Combining INSERT triggers with UPDATE or DELETE triggers is not supported.'
-            USING HINT = 'Please define separate triggers for each operation';
-        END IF;
-    END IF;
     IF (trigger_row.tgtype & (1 << 0) != 0) THEN
+        --is row trigger
         RETURN TRUE;
     END IF;
     RETURN FALSE;
