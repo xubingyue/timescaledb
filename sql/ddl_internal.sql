@@ -185,6 +185,10 @@ DECLARE
 BEGIN
     SELECT * INTO STRICT trigger_row FROM pg_trigger WHERE OID = trigger_oid;
 
+    IF trigger_row.tgname = '_timescaledb_main_insert_error_trigger' THEN
+        RETURN FALSE;
+    END IF;
+
     IF (trigger_row.tgtype & (1 << 0) != 0) THEN
         --is row trigger
         RETURN TRUE;

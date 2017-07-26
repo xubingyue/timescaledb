@@ -1,6 +1,7 @@
 \d+ _timescaledb_catalog.*;
 \df+ _timescaledb_internal.*;
 \dy
+\d+ public.*
 
 SELECT count(*)
   FROM pg_depend
