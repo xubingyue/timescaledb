@@ -33,3 +33,9 @@ ADD CONSTRAINT chunk_constraint_chunk_id_constraint_name_key UNIQUE (chunk_id, c
 
 CREATE SEQUENCE _timescaledb_catalog.chunk_constraint_name;
 SELECT pg_catalog.pg_extension_config_dump('_timescaledb_catalog.chunk_constraint_name', '');
+
+ALTER EXTENSION timescaledb
+DROP FUNCTION create_hypertable(REGCLASS, NAME, NAME,INTEGER,NAME,NAME,BIGINT,BOOLEAN, BOOLEAN);
+DROP FUNCTION create_hypertable(REGCLASS, NAME, NAME,INTEGER,NAME,NAME,BIGINT,BOOLEAN, BOOLEAN);
+
+
